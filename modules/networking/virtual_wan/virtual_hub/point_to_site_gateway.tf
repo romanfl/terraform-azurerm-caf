@@ -35,7 +35,7 @@ resource "azurerm_point_to_site_vpn_gateway" "p2s_gateway" {
       dynamic "vpn_client_address_pool" {
         for_each = connection_configuration.value.vpn_client_address_pool
         content {
-          address_prefixes = vpn_client_address_pool.value[0].address_prefixes
+          address_prefixes = vpn_client_address_pool.value
         }
       }
     }
