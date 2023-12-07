@@ -27,15 +27,15 @@ resource "azurerm_point_to_site_vpn_gateway" "p2s_gateway" {
   scale_unit = var.virtual_hub_config.p2s_config.scale_unit
 
   dynamic "connection_configuration" {
-    for_each = try(var.virtual_hub_config.p2s_config.connection_configuration, {}) != {} ? [1] : []
+    for_each = try(var.virtual_hub_config.p2s_config.connection_configuration, {})
 
     content {
-      name = var.virtual_hub_config.p2s_config.connection_configuration.name
+      name = connection_configuration.key
 
       dynamic "vpn_client_address_pool" {
-        for_each = var.virtual_hub_config.p2s_config.connection_configuration.vpn_client_address_pool
+        for_each = connection_configuration.value.vpn_client_address_pool
         content {
-          address_prefixes = var.virtual_hub_config.p2s_config.connection_configuration.vpn_client_address_pool.address_prefixes
+          address_prefixes = vpn_client_address_pool.value.address_prefixes
         }
       }
     }
