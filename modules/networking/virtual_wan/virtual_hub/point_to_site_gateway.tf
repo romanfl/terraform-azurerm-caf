@@ -59,6 +59,7 @@ resource "azurerm_vpn_server_configuration" "p2s_configuration" {
   location                 = var.location
   tags                     = local.tags
   vpn_authentication_types = var.virtual_hub_config.p2s_config.server_config.vpn_authentication_types
+  vpn_protocols = var.virtual_hub_config.p2s_config.server_config.vpn_protocols
 
   dynamic "client_root_certificate" {
     for_each = contains(var.virtual_hub_config.p2s_config.server_config.vpn_authentication_types, "Certificate") ? [1] : []
