@@ -33,6 +33,10 @@ output "p2s_gateway" {
   description = "Full Object for Virtual Network Gateway - Point to Site"
   value       = try(var.virtual_hub_config.deploy_p2s, false) ? azurerm_point_to_site_vpn_gateway.p2s_gateway.0 : null
 }
+output "p2s_gateway_connection_configuration" {
+  description = "Full Object for Virtual Network Gateway - Point to Site"
+  value       = try((var.virtual_hub_config.deploy_p2s || var.virtual_hub_config.deploy_p2s_configuration), false) ? azurerm_vpn_server_configuration.p2s_configuration.0 : null
+}
 
 output "resource_group_name" {
   description = "Name of the resource group where the resources are deployed."
